@@ -1,0 +1,40 @@
+'use strict';
+const dictionary=[
+['기름','he','שֶׁמֶן','shemen · 셰멘','H8081','기름, 특히 올리브 기름. 음식·등불·기름 부음에 사용되는 기름을 가리킵니다.',['출애굽기 27:20','시편 23:5']],
+['기름','gr','ἔλαιον','elaion · 엘라이온','G1637','올리브 기름. 등불, 상처 치료, 기름 부음 등의 문맥에 등장합니다.',['마태복음 25:3','야고보서 5:14']],
+['기름 향유','gr','μύρον','myron · 뮈론','G3464','향유, 향기로운 기름. 일반적인 올리브 기름과 구별되는 표제어입니다.',['요한복음 12:3']],
+['사랑','he','אַהֲבָה','ahavah · 아하바','H160','사랑, 애정. 사람 사이의 사랑과 하나님의 사랑을 표현합니다.',['아가 8:7']],
+['사랑','gr','ἀγάπη','agapē · 아가페','G26','사랑. 문맥에 따라 하나님과 사람을 향한 사랑을 나타냅니다.',['고린도전서 13:4','요한일서 4:8']],
+['평안 평화','he','שָׁלוֹם','shalom · 샬롬','H7965','평안, 평화, 온전함, 안녕. 전쟁이 없는 상태보다 넓은 뜻으로 쓰입니다.',['민수기 6:26']],
+['평안 평화','gr','εἰρήνη','eirēnē · 에이레네','G1515','평화, 평안. 관계의 화평과 마음의 평안 등을 나타냅니다.',['요한복음 14:27']],
+['믿음','he','אֱמוּנָה','emunah · 에무나','H530','견고함, 신실함, 성실함. 문맥에 따라 믿음으로 번역됩니다.',['하박국 2:4']],
+['믿음','gr','πίστις','pistis · 피스티스','G4102','믿음, 신뢰, 신실함. 문맥에 따른 의미를 함께 살펴보세요.',['히브리서 11:1']],
+['은혜','he','חֵן','ḥen · 헨','H2580','호의, 은총, 은혜. 호의를 얻는 관계를 나타냅니다.',['창세기 6:8']],
+['은혜','gr','χάρις','charis · 카리스','G5485','은혜, 호의, 감사. 문맥에 따라 여러 의미로 쓰입니다.',['에베소서 2:8']],
+['말씀 말','he','דָּבָר','davar · 다바르','H1697','말, 말씀, 일, 사건. 매우 넓은 의미 범위를 갖습니다.',['이사야 40:8']],
+['말씀 말','gr','λόγος','logos · 로고스','G3056','말, 말씀, 이야기, 설명. 요한복음의 문맥에서는 특별한 신학적 용법이 있습니다.',['요한복음 1:1']],
+['빛','he','אוֹר','or · 오르','H216','빛. 자연의 빛과 비유적인 빛을 표현합니다.',['창세기 1:3']],
+['빛','gr','φῶς','phōs · 포스','G5457','빛. 문자적 빛과 생명·계시를 표현하는 비유에 사용됩니다.',['요한복음 8:12']],
+['생명','he','חַיִּים','ḥayyim · 하임','H2416','삶, 생명. 히브리어에서는 복수 형태로 쓰이는 표제어입니다.',['창세기 2:7']],
+['생명','gr','ζωή','zōē · 조에','G2222','생명, 삶. 영원한 생명이라는 표현에도 등장합니다.',['요한복음 3:16']],
+['영 바람 숨','he','רוּחַ','ruaḥ · 루아흐','H7307','바람, 숨, 영. 의미는 해당 구절의 문맥에 따라 결정됩니다.',['창세기 1:2']],
+['영 바람 숨','gr','πνεῦμα','pneuma · 프뉴마','G4151','영, 숨, 바람. 성령을 나타내는 표현에도 사용됩니다.',['요한복음 3:8']],
+['마음','he','לֵב','lev · 레브','H3820','마음, 내면. 생각·의지·감정과 관련된 표현에 쓰입니다.',['잠언 16:9']],
+['마음','gr','καρδία','kardia · 카르디아','G2588','마음, 심장. 사람의 내면과 의도를 가리킵니다.',['마태복음 5:8']],
+['하나님','he','אֱלֹהִים','elohim · 엘로힘','H430','하나님, 신들. 문맥과 문법에 따라 지시 대상이 달라집니다.',['창세기 1:1']],
+['하나님','gr','θεός','theos · 테오스','G2316','하나님, 신. 본문 문맥과 관사를 함께 살펴보세요.',['요한복음 3:16']],
+['지혜','he','חָכְמָה','ḥokhmah · 호크마','H2451','지혜, 기술, 능숙함. 삶의 판단과 실제적 능력을 포함합니다.',['잠언 1:7']],
+['지혜','gr','σοφία','sophia · 소피아','G4678','지혜. 인간의 지혜와 하나님의 지혜를 표현합니다.',['야고보서 1:5']]
+];
+let books=[],mode='auto',current=null,requestId=0;const cache={};const $=id=>document.getElementById(id);const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const norm=s=>s.replace(/\s/g,'');
+function parseVerse(q){const match=q.trim().match(/^(.+?)\s*(\d+)\s*(?::|장)\s*(\d+)\s*절?\s*$/);if(!match)return null;const name=norm(match[1]);const book=books.find(b=>[b.name,b.short,b.code].some(n=>norm(n).toLowerCase()===name.toLowerCase())||(b.code==='Ps'&&name==='시편')||(b.code==='John'&&name==='요한'));return book?{book,chapter:+match[2],verse:+match[3]}:{unknown:true};}
+async function loadBook(b){if(!cache[b.code]){const r=await fetch(`data/${b.code}.json`);if(!r.ok)throw Error('본문을 불러오지 못했습니다.');cache[b.code]=await r.json();}return cache[b.code];}
+function note(message){$('results').innerHTML=`<div class="notice">${esc(message)}</div>`;}
+async function showVerse(p,id){if(p.unknown){note('성경 이름을 확인해주세요. 예: 잠언 16:9, 요한복음 3장 16절');return;}const {book,chapter,verse}=p;const data=await loadBook(book);if(id!==requestId)return;const key=`${chapter}:${verse}`,v=data[key];if(!v){note('이 판본에서 해당 장·절을 찾지 못했습니다. 장·절을 확인해주세요. 구약의 절 구분은 한국어 성경과 다를 수 있습니다.');return;}current=p;const heb=book.testament==='ot';const label=`${book.name} ${chapter}:${verse}`;const keys=Object.keys(data),at=keys.indexOf(key);const words=v.words?v.words.map((w,i)=>`<button data-word="${i}" aria-label="${esc(w.t)} 형태 정보">${esc(w.t)}</button>`).join(' '):esc(v.text);$('results').innerHTML=`<article class="verse-card"><div class="card-head"><h3>${label}<span class="badge">${heb?'히브리어 · 구약':'헬라어 · 신약'}</span></h3><span class="version">${heb?'WESTMINSTER LENINGRAD CODEX':'SBL GREEK NEW TESTAMENT'}</span></div><div class="original" lang="${heb?'he':'el'}" dir="${heb?'rtl':'ltr'}">${words}</div>${pronunciationHTML(v.text,heb,book.code,key)}<div class="detail" id="wordDetail" hidden></div>${meaningHTML(book.code,key)}<div class="verse-bottom"><span>${heb?'단어를 누르면 Strong 번호·형태 코드를 볼 수 있습니다.':'SBLGNT · Michael W. Holmes 편집'}</span><div class="navigation"><button class="small-btn" id="prevVerse" ${at===0?'disabled':''}>← 이전</button><button class="small-btn" id="nextVerse" ${at===keys.length-1?'disabled':''}>다음 →</button><button class="small-btn" id="copyVerse">복사</button></div></div></article>`;
+for(const [button,index] of [['prevVerse',at-1],['nextVerse',at+1]])$(button).onclick=()=>{if(!keys[index])return;const [c,n]=keys[index].split(':');run(`${book.name} ${c}:${n}`,'verse');};$('copyVerse').onclick=async()=>{try{await navigator.clipboard.writeText(`${label}\n${v.text}${verseMeanings[`${book.code}.${key}`]?"\n\n"+verseMeanings[`${book.code}.${key}`].reading:""}`);$('copyVerse').textContent='복사됨 ✓';}catch{ $('copyVerse').textContent='복사 실패';}};
+if(v.words)document.querySelectorAll('[data-word]').forEach(el=>el.onclick=()=>{const w=v.words[+el.dataset.word];const codes=w.s.split('/').map(n=>n.replace(/[a-z]/g,'' )).filter(n=>/^\d+$/.test(n)).map(n=>'H'+n);$('wordDetail').hidden=false;const annotated=verseMeanings[`${book.code}.${key}`]?.terms.find(t=>w.t.normalize('NFD').replace(/[\u0591-\u05c7]/g,'').includes(t[0].normalize('NFD').replace(/[\u0591-\u05c7]/g,'')));$('wordDetail').textContent=`${annotated?annotated[1]+' — '+annotated[2]+' · ':''}${w.t} · 발음: ${pronunciationFor(w.t,true).korean} (${pronunciationFor(w.t,true).roman}) · Strong: ${codes.join(' / ')||w.s} · 형태 코드: ${w.m} (OSHB 원본 코드)`;});}
+function showWords(q){current=null;const n=norm(q).toLowerCase();const found=dictionary.filter(d=>d[0].split(' ').some(k=>k===n)||d[2]===q||d[4].toLowerCase()===n||d[3].toLowerCase().includes(n));if(!found.length){note(`“${q}”은 아직 기초 사전에 수록되어 있지 않습니다. 기름, 사랑, 평안, 믿음, 은혜, 말씀, 빛, 생명, 영, 마음, 하나님, 지혜를 검색해보세요.`);return;}$('results').innerHTML=`<p class="note">${found.length}개 표제어 · 학습용 발음과 기본 뜻입니다. 관련 구절에서 실제 용례를 확인하세요.</p><div class="lex-grid">${found.map(d=>`<article class="lex-card"><div class="lex-top"><span>${d[1]==='he'?'히브리어 · 구약':'헬라어 · 신약'}</span><span>STRONG ${d[4]}</span></div><div class="lex-word" lang="${d[1]==='he'?'he':'el'}">${d[2]}</div><div class="pronunciation">${d[3]}</div><p>${d[5]}</p><div class="refs">${d[6].map(r=>`<button class="small-btn" data-query="${r}">${r} ↗</button>`).join('')}</div></article>`).join('')}</div>`;bindQueries();}
+async function run(q,forced){q=q.trim();if(!q)return;const id=++requestId;$('query').value=q;$('resultHeading').textContent=`“${q}” 검색 결과`;note('본문을 찾고 있습니다…');try{const p=parseVerse(q);const selected=forced||mode;if(selected==='verse'&&!p){note('성경 이름과 장·절을 입력해주세요. 예: 잠언 16:9');return;}if(p&&selected!=='word')await showVerse(p,id);else showWords(q);const url=new URL(location.href);url.searchParams.set('q',q);history.replaceState(null,'',url);}catch(e){if(id===requestId)note('데이터를 불러오지 못했습니다. 연결을 확인한 후 다시 검색해주세요.');}}
+function bindQueries(){document.querySelectorAll('[data-query]').forEach(b=>b.onclick=()=>run(b.dataset.query,b.closest('.refs')?'verse':'auto'));}
+$('searchForm').onsubmit=e=>{e.preventDefault();run($('query').value);};document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x===b));if($('query').value)run($('query').value);});$('sourceButton').onclick=()=>{$('sources').hidden=!$('sources').hidden;if(!$('sources').hidden)$('sources').scrollIntoView({behavior:'smooth'});};bindQueries();
+(async()=>{try{const r=await fetch('data/books.json');if(!r.ok)throw Error();books=await r.json();const q=new URLSearchParams(location.search).get('q');if(q)await run(q);else await showVerse(parseVerse('잠언 16:9'),requestId);}catch{note('성경 데이터를 불러오지 못했습니다. 페이지를 새로고침해주세요.');}})();
