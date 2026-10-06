@@ -32,6 +32,9 @@
 .iw-p{font-size:12px;line-height:1.4;color:#76836d}
 .iw-m{font-size:11px;line-height:1.35;color:#2f5a3f;background:#e3eddb;border-radius:10px;padding:2px 8px;margin-top:3px;max-width:10em}
 .iw-m:empty{display:none}
+.iw-m.basic{color:#6b6458;background:#f1ede4}
+.gloss-key{white-space:nowrap;margin-left:6px}.gloss-key i{display:inline-block;width:9px;height:9px;border-radius:3px;margin:0 3px 0 6px;vertical-align:-1px;background:#c9dcbc}.gloss-key i.key-basic{background:#ddd5c3}
+.wd-basic{font-size:13px;color:#5d6b56;margin:0 0 6px}.wd-basic b{color:#6b6458;margin-right:6px}.wd-basic span{font-size:11px;color:#8a8577}
 .iw.has-term .iw-o{color:#1f4d33;text-decoration:underline dotted #9db48f;text-underline-offset:8px}
 .original.interlinear .iw.selected{background:#eef3e7;border-color:#cfdcc6}
 .original.interlinear.sentence{display:block;padding:31px 40px 25px}
