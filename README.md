@@ -14,12 +14,16 @@
 
 시편은 OSHB VerseMap의 WLC↔KJV 절 대응을 사용하고 원문 WLC 번호도 표시합니다. 다른 구약 책은 WLC 절 번호 기준으로 한국어 성경과 일부 다를 수 있습니다. 원어 문자 검색은 악센트·모음 부호를 제외한 부분 문자열 검색으로 모든 굴절형을 합치는 표제어 검색이 아닙니다. 히브리어는 H Strong 번호 용례 검색을 지원합니다.
 
+단어별 보기에서 모든 단어 아래에 뜻 라벨을 표시합니다. 초록색은 이 구절의 문맥 뜻(핵심 단어 풀이), 회색은 사전 기본 뜻(자동 번역)입니다. 기본 뜻은 표제어의 대표 뜻이라 문맥 속 의미와 다를 수 있습니다.
+
 발음은 학습용 전사/한글 근사치입니다. 잠언 16:9과 요한복음 3:16은 검토한 표기, 나머지는 자동 전사입니다. AI 풀이에는 검토 전 표시가 붙으며 문법·해석에 오류가 있을 수 있습니다.
 
 ## 자료와 라이선스
 
 - [OSHB](https://github.com/openscriptures/morphhb): Daniel Owens, David Troidl 및 기여자. WLC 본문 공개 영역, OSHB 형태 분석·주석·VerseMap CC BY 4.0.
 - [SBLGNT](https://github.com/LogosBible/SBLGNT): Michael W. Holmes 편집. © 2010 Society of Biblical Literature & Logos Bible Software. CC BY 4.0.
+- [MorphGNT SBLGNT](https://github.com/morphgnt/sblgnt): 헬라어 단어별 표제어(lemma) 정렬. CC BY-SA 3.0. 신약 데이터의 `l` 배열(표제어 번호)이 이 자료에서 왔습니다.
+- Strong's Hebrew/Greek Dictionary (James Strong, 1890): 공개 영역. `data/glosses-he.json`(Strong 번호별)과 `data/glosses-gr.json`(표제어별)의 한국어 기본 뜻은 이 영어 정의를 바탕으로 AI가 짧게 옮긴 자동 번역이며 검토 전입니다.
 - [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) · [전문](data/SBLGNT-LICENSE.txt)
 
 원문은 JSON으로 변환하고 히브리어 형태소 구분 기호와 편집 주석을 생략했습니다. 한국어 풀이는 자체 작성 또는 AI 생성 학습용 설명이며 특정 한국어 성경 번역본을 인용하지 않습니다.

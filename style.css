@@ -20,3 +20,56 @@
 @media(max-width:700px){.hit-book{padding:9px 15px}.corpus-hit{flex-wrap:wrap;gap:4px 10px}.corpus-hit>span:first-child{width:100%;min-width:0}.corpus-hit>span:nth-child(2){font-size:19px}}
 .dist-more{display:none;border:0;background:none;font:inherit;font-size:11px;color:var(--green);padding:4px 6px;cursor:pointer;text-decoration:underline}
 @media(max-width:700px){.dist-more{display:inline-block}.hit-dist:not(.open) .dist-chip.extra:not(.active){display:none}}
+/* 구절 학습 화면: 단어별 보기, 번역, 탭 */
+.study-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 28px 0;font-size:11px;color:#87927f}
+.view-toggle{display:flex;background:#eaece5;padding:3px;border-radius:6px;flex-shrink:0}
+.view-toggle button{border:0;background:transparent;font:inherit;font-size:11px;color:#6a7763;padding:6px 12px;border-radius:4px;cursor:pointer}
+.view-toggle .active{background:white;color:var(--green);box-shadow:0 1px 3px #0001}
+.original.interlinear{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px 4px;padding:22px 28px 20px}
+.original.interlinear .iw{display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:6px 8px;border:1px solid transparent;border-radius:8px;cursor:pointer}
+.iw-o{font-size:31px;line-height:1.55}
+.iw-p,.iw-m{font-family:'Noto Sans KR',sans-serif;direction:ltr;unicode-bidi:isolate;text-align:center}
+.iw-p{font-size:12px;line-height:1.4;color:#76836d}
+.iw-m{font-size:11px;line-height:1.35;color:#2f5a3f;background:#e3eddb;border-radius:10px;padding:2px 8px;margin-top:3px;max-width:10em}
+.iw-m:empty{display:none}
+.iw-m.basic{color:#6b6458;background:#f1ede4}
+.gloss-key{white-space:nowrap;margin-left:6px}.gloss-key i{display:inline-block;width:9px;height:9px;border-radius:3px;margin:0 3px 0 6px;vertical-align:-1px;background:#c9dcbc}.gloss-key i.key-basic{background:#ddd5c3}
+.wd-basic{font-size:13px;color:#5d6b56;margin:0 0 6px}.wd-basic b{color:#6b6458;margin-right:6px}.wd-basic span{font-size:11px;color:#8a8577}
+.iw.has-term .iw-o{color:#1f4d33;text-decoration:underline dotted #9db48f;text-underline-offset:8px}
+.original.interlinear .iw.selected{background:#eef3e7;border-color:#cfdcc6}
+.original.interlinear.sentence{display:block;padding:31px 40px 25px}
+.original.interlinear.sentence .iw{display:inline;padding:2px 4px}
+.interlinear.sentence .iw-p,.interlinear.sentence .iw-m{display:none}
+.interlinear.sentence .iw-o{font-size:inherit;line-height:inherit}
+.interlinear.sentence .iw.has-term .iw-o{text-decoration:none}
+.word-detail{margin:0 28px 18px;padding:16px 18px;background:white;border:1px solid #cfdcc6;border-radius:8px;box-shadow:0 4px 14px #304c3612}
+.wd-head{display:flex;justify-content:space-between;align-items:center}
+.wd-head strong{font:30px/1.5 'Noto Serif Hebrew',Georgia,serif;font-weight:400}
+.wd-close{border:0;background:none;font-size:22px;color:#87927f;cursor:pointer;padding:0 6px}
+.wd-pron{font-size:13px;margin:2px 0 10px}.wd-pron span{color:#929b88;font-size:12px}
+.wd-term{font-size:13px;line-height:1.9;color:#5d6b56;margin:0}.wd-term b{display:block;color:#2f5a3f;font-size:14px}
+.wd-empty{color:#9aa18f;font-size:12px}
+.wd-meta{font-size:11px;color:#87927f;margin:10px 0 0}.wd-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.study-reading{margin:0 28px 24px;padding:12px 18px;border-left:3px solid #78936b;background:#eef3e9;border-radius:0 6px 6px 0}
+.study-reading .eyebrow{font-size:10px;letter-spacing:.12em;color:#6f8964}
+.study-reading p{margin:4px 0 0;font-size:16px;line-height:1.9;color:#314e38}.study-reading p.note{font-size:12px;color:#7b8473}
+.study-reading .small-btn{margin-top:8px}
+.study-tabs{display:flex;gap:4px;padding:0 20px;border-top:1px solid #edf0e8;border-bottom:1px solid #edf0e8;background:#fbfcf8}
+.study-tabs button{border:0;background:none;font:inherit;font-size:13px;color:#7b8379;padding:14px 12px 12px;border-bottom:2px solid transparent;cursor:pointer}
+.study-tabs .active{color:var(--green);border-bottom-color:var(--green);font-weight:600}
+.study-panel{padding:22px 28px 26px;background:#fbfcf8}
+.study-panel>p{font-size:13px;line-height:2;color:#5f6b58;margin:0}
+.study-panel h5{font-size:13px;font-weight:600;margin:20px 0 8px;color:#496245}
+.study-panel .note{font-size:11px;color:#939c88;margin-top:18px}
+.study-panel .pronunciation-panel{margin:0}
+@media(max-width:700px){
+.study-toolbar{padding:14px 16px 0;align-items:flex-start}
+.original.interlinear{padding:14px 10px 16px;gap:8px 0}
+.original.interlinear .iw{padding:4px 5px}
+.iw-o{font-size:24px}.iw-p{font-size:11px}.iw-m{font-size:10px;padding:1px 6px;max-width:6.5em}
+.original.interlinear.sentence{padding:20px 18px}
+.word-detail{margin:0 12px 14px;padding:14px}
+.study-reading{margin:0 12px 18px;padding:10px 14px}.study-reading p{font-size:15px}
+.study-tabs{padding:0 6px}.study-tabs button{flex:1;padding:13px 4px 11px}
+.study-panel{padding:18px 16px 22px}
+}
