@@ -7,3 +7,14 @@
 .verse-number-note{font-size:11px;color:#869277;margin:20px 32px 0;line-height:1.8}
 
 .ai-label{font-size:10px;color:#7d8c70;display:inline-block;padding:4px 8px;background:#eaf0e3;border-radius:4px;margin-left:8px}.ai-uncertainties{font-size:12px;line-height:1.9;color:#758369;padding-left:20px}
+/* 원어 용례 검색 결과: 강조, 책별 분포, 책 묶음 */
+.corpus-hit mark,.chapter-intro mark{background:#f3e3a6;color:inherit;border-radius:3px;padding:0 2px;box-shadow:inset 0 -2px 0 #d9b94a}
+.hit-entry{font-size:13px!important;color:var(--ink)!important;margin:6px 0 0}.hit-entry span{font:20px 'Noto Serif Hebrew',Georgia,serif;margin-right:4px}
+.hit-dist{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid #edf0e8}
+.dist-chip{border:1px solid var(--border);background:white;border-radius:20px;padding:4px 11px;font:inherit;font-size:11px;color:#5f6f58;cursor:pointer}
+.dist-chip b{color:var(--green);margin-left:2px}.dist-chip.active{background:var(--green);border-color:var(--green);color:white}.dist-chip.active b{color:white}
+.dist-split{font-size:11px;color:var(--muted);margin:0 6px}
+.hit-book{display:flex;justify-content:space-between;align-items:baseline;padding:10px 22px;background:#eef2e8;border-bottom:1px solid var(--border);font-size:13px}
+.hit-book span{font-size:11px;color:var(--muted)}
+.corpus-hit{padding:13px 22px}.corpus-hit>span:first-child{min-width:48px;font-variant-numeric:tabular-nums}.corpus-hit>span:nth-child(2){font-size:21px}
+@media(max-width:700px){.hit-book{padding:9px 15px}.corpus-hit{flex-wrap:wrap;gap:4px 10px}.corpus-hit>span:first-child{width:100%;min-width:0}.corpus-hit>span:nth-child(2){font-size:19px}}
