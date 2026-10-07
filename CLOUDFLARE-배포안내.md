@@ -12,7 +12,7 @@
 
 Cloudflare Dashboard → Workers & Pages → Create application → GitHub 저장소 연결에서 `bible-original`을 선택합니다. **Workers 프로젝트**를 만드세요. Pages 프로젝트는 아닙니다.
 
-- 프로젝트 이름: `bible-original-meaning-api`
+- 프로젝트 이름: `bible-original`
 - 브랜치: `main`
 - 루트 디렉터리: 저장소 최상위 (기본값)
 - 빌드 명령: 비워 두어도 됩니다. Wrangler의 build 설정이 데이터를 생성합니다.
@@ -45,7 +45,7 @@ Worker 주소 뒤 `/health`를 열었을 때 다음이 나오면 연결 준비�
 GitHub의 `ai-config.js`를 편집해 **실제로 발급된 Worker URL**을 입력하세요.
 
 ```js
-const MEANING_API_URL = 'https://bible-original-meaning-api.실제계정.workers.dev';
+const MEANING_API_URL = 'https://bible-original.실제계정.workers.dev';
 ```
 
 끝에 `/api/meaning`을 붙이지 않습니다. 저장하면 GitHub Pages가 갱신됩니다. 기존 검토 풀이가 없는 구절을 열면 원문과 주변 구절을 바탕으로 AI 풀이를 생성합니다. 시편 57편은 저장된 자체 풀이를 보여주므로 API 연결 테스트에는 다른 미수록 구절을 사용하세요.
