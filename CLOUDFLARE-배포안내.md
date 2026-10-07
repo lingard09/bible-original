@@ -20,6 +20,8 @@ Cloudflare Dashboard → Workers & Pages → Create application → GitHub 저�
 
 `package.json`의 개발 의존성 Wrangler가 설치돼야 합니다. 플랫폼이 의존성을 자동 설치하지 않으면 빌드 명령을 `npm install`로 지정하세요. 배포 명령은 그대로 `npx wrangler deploy`입니다.
 
+PR·다른 브랜치에는 Workers Builds가 `npx wrangler preview`로 미리보기를 만듭니다. 미리보기 변수는 `wrangler.jsonc`의 `previews` 블록(하루 생성 한도 10회, `localhost:8000` 허용)을 사용합니다. 미리보기 Secret은 운영과 따로 관리되므로(`wrangler preview secret`) 미리보기에서도 AI 풀이를 쓰려면 `npx wrangler preview secret put OPENAI_API_KEY`로 따로 등록하세요. 등록하지 않으면 미리보기에서는 AI 풀이만 동작하지 않습니다.
+
 Workers Builds의 빌드 시간·사용량에도 별도 제한이 있습니다. Git 연결 방식 대신 아래 CLI 배포를 사용해도 같은 Workers가 만들어집니다.
 
 ## 3. API 키 설정
