@@ -1,9 +1,9 @@
 'use strict';
 // 구절 학습 화면: 원문 단어 아래 발음·뜻을 붙인 단어별 보기, 번역, 탭으로 나눈 문맥 의미·핵심 단어·발음.
 let studyState=null;
-// 모든 단어의 기본 뜻: 히브리어는 Strong 번호, 헬라어는 MorphGNT 표제어 번호로 찾는 한국어 사전 뜻.
-const studyGlosses={};
-function loadStudyGlosses(heb){const k=heb?'he':'gr';return studyGlosses[k]??=fetch(`data/glosses-${k}.json`).then(r=>{if(!r.ok)throw Error();return r.json();}).catch(()=>{delete studyGlosses[k];return null;});}
+// 모든 단어의 기본 뜻과 형태: 히브리어는 Strong 번호, 헬라어는 MorphGNT 표제어 번호로 찾는 한국어 사전 뜻.
+const studyFiles={};
+function loadStudyFile(path){return studyFiles[path]??=fetch(path).then(r=>{if(!r.ok)throw Error();return r.json();}).catch(()=>{delete studyFiles[path];return null;});}
 const studyStrong=w=>w?.s.split('/').map(n=>n.replace(/[a-z\s]/g,'')).filter(n=>/^\d+$/.test(n)).pop();
 function studyBasic(x,i,heb,g){if(!g)return '';if(heb)return g[studyStrong(x.w)]||'';const l=studyState.lemmas;return l?.length===studyState.tokens.length?g.glosses[l[i]]||'':'';}
 const studyStrip=s=>s.normalize('NFD').replace(/[̀-֑ͯ-ׇ]/g,'').replace(/ς/g,'σ').replace(/[^\p{L}\s]/gu,'').toLowerCase().trim();
@@ -14,7 +14,7 @@ function studyTokens(v){return v.words?v.words.map(w=>({t:w.t,w})):v.text.split(
 function normalizeMeaning(m){return {reading:m.reading,context:m.context,terms:m.terms.map(t=>Array.isArray(t)?{original:t[0],meaning:t[1],explanation:t[2]}:t),uncertainties:m.uncertainties||[]};}
 function studyHTML(v,heb,code,key){
  const tokens=studyTokens(v),mode=studyMode(),lang=heb?'he':'el';
- studyState={tokens,heb,lemmas:v.l,terms:[],matches:tokens.map(()=>({ti:-1})),basic:[]};
+ studyState={tokens,heb,lemmas:v.l,parse:v.p,terms:[],matches:tokens.map(()=>({ti:-1})),basic:[]};
  const words=tokens.map((x,i)=>`<button class="iw" id="iw${i}" data-word="${i}" aria-label="${esc(x.t)} 단어 정보"><span class="iw-o">${esc(x.t)}</span><span class="iw-p" lang="ko">${esc(pronunciationFor(studyBare(x.t),heb).korean)}</span><span class="iw-m" id="gloss${i}" lang="ko"></span></button>`).join(' ');
  return `<div class="study-top"><div class="study-toolbar"><span>단어를 누르면 발음·뜻${heb?'·Strong 번호':''}를 볼 수 있습니다. <span class="gloss-key"><i class="key-term"></i>문맥 뜻 <i class="key-basic"></i>사전 기본 뜻</span></span><div class="view-toggle" role="group" aria-label="원문 보기 방식"><button id="viewWords" class="${mode==='words'?'active':''}" aria-pressed="${mode==='words'}">단어별</button><button id="viewSentence" class="${mode==='sentence'?'active':''}" aria-pressed="${mode==='sentence'}">문장</button></div></div>`
   +`<div class="original interlinear${mode==='sentence'?' sentence':''}" id="studyOriginal" lang="${lang}" dir="${heb?'rtl':'ltr'}">${words}</div>`
@@ -45,16 +45,20 @@ function renderGlosses(){
  matches.forEach((r,i)=>{const term=r.label?terms[r.ti].meaning:'',g=$('gloss'+i);$('iw'+i).classList.toggle('has-term',r.ti>=0);g.textContent=term||basic[i]||'';g.classList.toggle('basic',!term);});
 }
 async function applyBasicGlosses(){
- const s=studyState,g=await loadStudyGlosses(s.heb);if(s!==studyState||!g)return;
- s.basic=s.tokens.map((x,i)=>studyBasic(x,i,s.heb,g));if(!s.heb&&s.lemmas?.length===s.tokens.length)s.lemmaText=s.lemmas.map(n=>g.lemmas[n]);renderGlosses();
+ const s=studyState,greekMorph=!s.heb&&s.parse?.length===s.tokens.length;
+ const [g,table]=await Promise.all([loadStudyFile(`data/glosses-${s.heb?'he':'gr'}.json`),greekMorph?loadStudyFile('data/morph-gr.json'):null]);if(s!==studyState)return;
+ if(table)s.morphCodes=s.parse.map(n=>table[n]);
+ if(g){s.basic=s.tokens.map((x,i)=>studyBasic(x,i,s.heb,g));if(!s.heb&&s.lemmas?.length===s.tokens.length)s.lemmaText=s.lemmas.map(n=>g.lemmas[n]);renderGlosses();}
+ if(s.selected!==undefined)showWordDetail(s.selected);
 }
 function showWordDetail(i){
+ studyState.selected=i;
  const x=studyState.tokens[i],heb=studyState.heb,p=pronunciationFor(studyBare(x.t),heb),term=studyState.terms[studyState.matches[i]?.ti];
- const codes=x.w?x.w.s.split('/').map(n=>n.replace(/[a-z\s]/g,'')).filter(n=>/^\d+$/.test(n)).map(n=>'H'+n):[],basic=studyState.basic[i];
+ const codes=x.w?x.w.s.split('/').map(n=>n.replace(/[a-z\s]/g,'')).filter(n=>/^\d+$/.test(n)).map(n=>'H'+n):[],basic=studyState.basic[i],greekCode=heb?'':studyState.morphCodes?.[i],morph=heb?morphHebrew(x.w?.m):morphGreek(greekCode);
  studyState.tokens.forEach((_,j)=>$('iw'+j).classList.toggle('selected',j===i));
  $('wordDetail').hidden=false;
- $('wordDetail').innerHTML=`<div class="wd-head"><strong lang="${heb?'he':'el'}" dir="${heb?'rtl':'ltr'}">${esc(x.t)}</strong><button class="wd-close" id="wdClose" aria-label="단어 정보 닫기">×</button></div><p class="wd-pron">${esc(p.korean)} <span>· ${esc(p.roman)} · 자동 전사</span></p>${basic?`<p class="wd-basic"><b>기본 뜻</b>${esc(basic)} <span>· ${studyState.lemmaText?`표제어 ${esc(studyState.lemmaText[i])} · `:''}Strong 사전 기반 자동 번역</span></p>`:''}${term?`<p class="wd-term"><b>${esc(term.meaning)}</b>${esc(term.explanation)}</p>`:'<p class="wd-term wd-empty">이 구절의 핵심 원어 풀이에는 포함되어 있지 않습니다.</p>'}${x.w?`<p class="wd-meta">Strong ${esc(codes.join(' / ')||x.w.s)} · 형태 코드 ${esc(x.w.m)} (OSHB 원본 코드)</p>${codes.length?`<div class="wd-actions">${codes.map(c=>`<button class="small-btn" data-query="${c}">${c} 성경 전체 용례 ↗</button>`).join('')}</div>`:''}`:''}`;
- $('wdClose').onclick=()=>{$('wordDetail').hidden=true;studyState.tokens.forEach((_,j)=>$('iw'+j).classList.toggle('selected',false));};
+ $('wordDetail').innerHTML=`<div class="wd-head"><strong lang="${heb?'he':'el'}" dir="${heb?'rtl':'ltr'}">${esc(x.t)}</strong><button class="wd-close" id="wdClose" aria-label="단어 정보 닫기">×</button></div><p class="wd-pron">${esc(p.korean)} <span>· ${esc(p.roman)} · 자동 전사</span></p>${basic?`<p class="wd-basic"><b>기본 뜻</b>${esc(basic)} <span>· ${studyState.lemmaText?`표제어 ${esc(studyState.lemmaText[i])} · `:''}Strong 사전 기반 자동 번역</span></p>`:''}${morphHTML(morph)}${term?`<p class="wd-term"><b>${esc(term.meaning)}</b>${esc(term.explanation)}</p>`:'<p class="wd-term wd-empty">이 구절의 핵심 원어 풀이에는 포함되어 있지 않습니다.</p>'}${x.w?`<p class="wd-meta">Strong ${esc(codes.join(' / ')||x.w.s)} · OSHB 형태 코드 ${esc(x.w.m)}</p>${codes.length?`<div class="wd-actions">${codes.map(c=>`<button class="small-btn" data-query="${c}">${c} 성경 전체 용례 ↗</button>`).join('')}</div>`:''}`:greekCode?`<p class="wd-meta">MorphGNT 형태 코드 ${esc(greekCode)}</p>`:''}`;
+ $('wdClose').onclick=()=>{$('wordDetail').hidden=true;studyState.selected=undefined;studyState.tokens.forEach((_,j)=>$('iw'+j).classList.toggle('selected',false));};
  bindQueries();
 }
 function selectStudyTab(name){for(const [k] of STUDY_TABS){const on=k===name;$('tab-'+k).classList.toggle('active',on);$('tab-'+k).setAttribute?.('aria-selected',String(on));$('panel-'+k).hidden=!on;}}
