@@ -29,15 +29,15 @@ function hebrewRoman(text){
 }
 function greekRoman(text){
  const letters={'α':'a','β':'b','γ':'g','δ':'d','ε':'e','ζ':'z','η':'ē','θ':'th','ι':'i','κ':'k','λ':'l','μ':'m','ν':'n','ξ':'x','ο':'o','π':'p','ρ':'r','σ':'s','ς':'s','τ':'t','υ':'u','φ':'ph','χ':'kh','ψ':'ps','ω':'ō'};
- return text.split(/(\s+|[.,;:!?·])/).map(word=>{const groups=[...word.toLowerCase().normalize('NFD').matchAll(/([α-ω])([\u0300-\u036f]*)/g)];if(!groups.length)return word.replace(/[⸀⸁⸂⸃⸄⸅⸆⸇⸈⸉⸊⸋⸌⸍⸎⸏\[\]]/g,'');let out='';const rough=groups.slice(0,2).some(g=>g[2].includes('\u0314'));if(rough)out='h';for(let i=0;i<groups.length;i++){const l=groups[i][1];out+=l==='γ'&&/[γκχξ]/.test(groups[i+1]?.[1]||'')?'n':letters[l]||l;}return out+(word.match(/[.,;:!?·]$/)?.[0]||'');}).join('');
+ return text.split(/(\s+|[.,;:!?·])/).map(word=>{const groups=[...word.toLowerCase().normalize('NFD').matchAll(/([α-ω])([\u0300-\u036f]*)/g)];if(!groups.length)return word.replace(/[⸀⸁⸂⸃⸄⸅⸆⸇⸈⸉⸊⸋⸌⸍⸎⸏\[\]]/g,'');let out='';const rough=groups.slice(0,2).some(g=>g[2].includes('\u0314')),rho=groups[0][1]==='ρ';if(rough&&!rho)out='h';for(let i=0;i<groups.length;i++){const l=groups[i][1];out+=i===0&&rho&&rough?'rh':l==='γ'&&/[γκχξ]/.test(groups[i+1]?.[1]||'')?'n':letters[l]||l;}return out+(word.match(/[.,;:!?·]$/)?.[0]||'');}).join('');
 }
 function koreanApprox(roman){
  const onsets={'':'ㅇ',b:'ㅂ',p:'ㅍ',d:'ㄷ',t:'ㅌ',g:'ㄱ',k:'ㅋ',q:'ㅋ',h:'ㅎ',kh:'ㅎ',th:'ㅌ',ph:'ㅍ',f:'ㅍ',v:'ㅂ',m:'ㅁ',n:'ㄴ',r:'ㄹ',l:'ㄹ',s:'ㅅ',sh:'ㅅ',z:'ㅈ',ts:'ㅊ',y:'ㅇ',w:'ㅇ'};
  const initials='ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';const medial={'a':0,'e':5,'i':20,'o':8,'u':13,'ya':2,'ye':7,'yo':12,'yu':17,'wa':9,'we':10,'wi':16,'wo':14};const codas={n:4,m:16,l:8,r:8};
  const compose=(c,v,final='')=>{const idx=initials.indexOf(onsets[c]||'ㅇ');return String.fromCharCode(0xac00+(idx*21+(medial[v]??18))*28+(codas[final]||0));};
- return roman.normalize('NFD').replace(/[\u0300-\u036fʾʿ]/g,'').toLowerCase().replace(/ḥ/g,'h').replace(/ṭ/g,'t').replace(/x/g,'ks').split(/(\s+|[-.,;:!?·])/).map(word=>{
+ return roman.normalize('NFD').replace(/[\u0300-\u036fʾʿ]/g,'').toLowerCase().replace(/ḥ/g,'h').replace(/ṭ/g,'t').replace(/x/g,'ks').replace(/rh/g,'r').split(/(\s+|[-.,;:!?·])/).map(word=>{
  if(!/[a-z]/.test(word))return word;const units=word.match(/kh|th|ph|sh|ts|[a-z]/g)||[];let out='',i=0;
- while(i<units.length){let c='';if(!/[aeiou]/.test(units[i])){c=units[i++];if(i===units.length||!/[aeiou]/.test(units[i])){if((c==='y'||c==='w')&&i<units.length&&/[aeiou]/.test(units[i])){}else{out+=compose(c,'eu');continue;}}}
+ while(i<units.length){let c='';if(!/[aeiou]/.test(units[i])){c=units[i++];if(i===units.length||!/[aeiou]/.test(units[i])){if((c==='y'||c==='w')&&i<units.length&&/[aeiou]/.test(units[i])){}else{out+=c==='y'&&i>1&&/[aeiou]/.test(units[i-2])?compose('','i'):c==='sh'?compose('s','wi'):compose(c,'eu');continue;}}}
  let v=units[i++];if(c==='y'||c==='w'){const combined=c+v;if(medial[combined]!==undefined){v=combined;c='';}}
  if(c==='sh'&&['a','e','o','u'].includes(v)){v='y'+v;c='s';}
  if(v==='o'&&units[i]==='u'){v='u';i++;}
