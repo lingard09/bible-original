@@ -10,5 +10,13 @@
     "OPENAI_MODEL": "gpt-4.1-mini",
     "ALLOWED_ORIGINS": "https://lingard09.github.io",
     "DAILY_GENERATION_LIMIT": "100"
+  },
+  // PR·브랜치 미리보기(wrangler preview) 전용 값. 운영과 같은 모델을 쓰되 하루 생성 한도를 낮춰 비용을 묶고, 로컬 사이트(python -m http.server 8000)에서도 호출할 수 있게 합니다.
+  "previews": {
+    "vars": {
+      "OPENAI_MODEL": "gpt-4.1-mini",
+      "ALLOWED_ORIGINS": "https://lingard09.github.io,http://localhost:8000",
+      "DAILY_GENERATION_LIMIT": "10"
+    }
   }
 }
