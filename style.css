@@ -49,6 +49,7 @@ select{font:inherit;padding:10px;border:1px solid #cad5c2;border-radius:5px;back
 .wd-pron{font-size:13px;margin:2px 0 10px}.wd-pron span{color:#929b88;font-size:12px}
 .wd-term{font-size:13px;line-height:1.9;color:#5d6b56;margin:0}.wd-term b{display:block;color:#2f5a3f;font-size:14px}
 .wd-empty{color:#9aa18f;font-size:12px}
+.wd-morph{margin:4px 0 10px;padding:9px 11px;background:#f5f7f1;border-radius:8px}.wd-label{display:block;font-size:11px;color:#7b8870;margin-bottom:4px}.mo-segs{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.6;color:#3d4a37}.mo-seg b{color:#2f5a3f;margin-right:2px}.mo-plus{color:#a3ad99;font-style:normal;margin-right:5px}.mo-note{font-size:12px;color:#5d6b56;margin:6px 0 0}.mo-note span{font-size:11px;color:#8a8577}
 .wd-meta{font-size:11px;color:#87927f;margin:10px 0 0}.wd-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .study-reading{margin:0 28px 24px;padding:12px 18px;border-left:3px solid #78936b;background:#eef3e9;border-radius:0 6px 6px 0}
 .study-reading .eyebrow{font-size:10px;letter-spacing:.12em;color:#6f8964}
