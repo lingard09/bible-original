@@ -111,3 +111,25 @@ select{font:inherit;padding:10px;border:1px solid #cad5c2;border-radius:5px;back
 .lx-grid{grid-template-columns:repeat(2,1fr);gap:8px}.lx-card{padding:12px}.lx-glyph{font-size:38px}
 .lx-finals{grid-template-columns:repeat(2,1fr)}.lx-vrow{grid-template-columns:64px 1fr;gap:10px;padding:12px 14px}.lx-vrow .lx-ex{grid-column:2;text-align:left;align-items:flex-start}
 .lx-practice{grid-template-columns:repeat(2,1fr)}.lx-qopts{grid-template-columns:1fr}}
+/* 빈도순 단어 학습(vocab.html) */
+.vc-progress{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.vc-stat{background:white;border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}.vc-stat b{font-size:24px;font-weight:600;color:var(--green)}.vc-stat span{font-size:11px;color:var(--muted);line-height:1.5}
+.vc-bar{height:8px;background:#e6eae0;border-radius:4px;margin:14px 0;overflow:hidden}.vc-bar i{display:block;height:100%;background:#6f9461;border-radius:4px}
+.vc-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted)}.vc-actions label{display:flex;align-items:center;gap:8px}.vc-actions select{width:auto;min-height:34px;padding:5px 8px}
+.vc-start{border:0;background:var(--green);color:white;border-radius:6px;padding:12px 22px;font-size:14px}.vc-start:disabled{background:#b9c4b2;cursor:default}
+.vc-card{max-width:620px;margin:24px auto;background:white;border:1px solid var(--border);border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px #0000000a;text-align:center}
+.vc-card-top{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.vc-word{font:56px/1.5 'Noto Serif Hebrew',Georgia,serif;margin:22px 0 14px;color:var(--ink)}
+.vc-reveal{width:100%;border:1px dashed #b9c8ad;background:#f7f9f4;border-radius:8px;padding:16px;font-size:15px;color:var(--green)}.vc-reveal small,.vc-answer small{display:block;font-size:10px;color:#9aa58f;margin-top:2px}
+.vc-pron{font-size:15px;margin:0;color:#3d4a37}.vc-pron span{font-size:12px;color:var(--muted)}
+.vc-gloss{font-size:24px;font-weight:600;color:#2f5a3f;margin:8px 0 4px}.vc-badge{font-size:11px;color:#8a8577;margin:0 0 14px}
+.vc-example{text-align:left;background:#f5f7f1;border-radius:8px;padding:12px 14px;margin-bottom:14px}.vc-example p{font:20px/1.9 'Noto Serif Hebrew',Georgia,serif;margin:0 0 6px}.vc-example mark{background:#f3e3a6;border-radius:3px;padding:0 2px}.vc-example a{font-size:11px;color:#6c7765}
+.vc-answer{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.vc-answer button{border:1px solid var(--border);background:#fbfcf8;border-radius:8px;padding:12px 6px;font-size:14px;color:var(--ink)}
+.vc-answer [data-grade="0"]{border-color:#e2bfb6;color:#8a3c2e}.vc-answer [data-grade="2"]{border-color:#a9c799;background:#eef5e9;color:#2f5a3f}
+.vc-flag{margin-top:12px;border:0;background:none;font-size:11px;color:#9a8f7c;text-decoration:underline}.vc-flag.on{color:#a0632a}
+.vc-done h3{margin:6px 0 10px;font-size:20px}.vc-done p{font-size:14px;line-height:1.9;color:#4c5d45}
+.vc-listhead{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px;font-size:12px;color:var(--muted)}.vc-listhead label{display:flex;align-items:center;gap:8px}.vc-listhead select{width:auto;min-height:36px;padding:5px 8px}
+.vc-table{background:white;border:1px solid var(--border);border-radius:8px;overflow-x:auto}.vc-table table{width:100%;border-collapse:collapse;font-size:13px}.vc-table th{font-size:11px;font-weight:500;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap}.vc-table td{padding:8px 12px;border-bottom:1px solid #eef1ea}.vc-table tr:last-child td{border-bottom:0}
+.vc-lw{font:22px/1.5 'Noto Serif Hebrew',Georgia,serif;white-space:nowrap}.vc-num{font-variant-numeric:tabular-nums;color:var(--muted);text-align:right}
+.vc-st{border:1px solid var(--border);background:white;border-radius:12px;font-size:11px;padding:3px 9px;white-space:nowrap;color:#7b8379}.vc-st.learning{background:#fbf3dc;border-color:#ead79a;color:#7d6420}.vc-st.solid{background:#e3eddb;border-color:#a9c799;color:#2f5a3f}.vc-st.again{background:#f6e3df;border-color:#e2bfb6;color:#8a3c2e}
+.vc-flags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.vc-flags span{background:white;border:1px solid var(--border);border-radius:14px;padding:4px 10px;font-size:12px}.vc-flags b{font:16px 'Noto Serif Hebrew',Georgia,serif;margin-right:4px}
+@media(max-width:700px){.vc-progress{grid-template-columns:repeat(2,1fr)}.vc-stat b{font-size:20px}.vc-card{padding:16px}.vc-word{font-size:48px}.vc-table td,.vc-table th{padding:8px}.vc-table td:nth-child(3),.vc-table th:nth-child(3){display:none}}
