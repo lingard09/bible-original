@@ -14,6 +14,8 @@
 
 시편은 OSHB VerseMap의 WLC↔KJV 절 대응을 사용하고 원문 WLC 번호도 표시합니다. 다른 구약 책은 WLC 절 번호 기준으로 한국어 성경과 일부 다를 수 있습니다. 원어 문자 검색은 악센트·모음 부호를 제외한 부분 문자열 검색으로 모든 굴절형을 합치는 표제어 검색이 아닙니다. 히브리어는 H Strong 번호 용례 검색을 지원합니다.
 
+단어 학습(`vocab.html`): 성경에 10회 이상 나오는 표제어(히브리어 1,922개, 헬라어 1,059개, 고유명사 제외)를 빈도순으로 카드 학습합니다. 간격 반복(라이트너 상자: 1·3·7·16·35일)으로 복습하고, 익힌 단어가 본문 단어의 몇 %인지 보여 줍니다. 카드마다 그 단어가 나오는 짧은 구절을 예문으로 보여 줍니다. 진도와 "뜻이 이상해요" 표시는 브라우저 localStorage에만 저장되며, 표시한 단어 목록은 복사해 검토에 쓸 수 있습니다. 데이터 생성 기준: 히브리어는 주 Strong 번호(접두어 제외), 헬라어는 MorphGNT 표제어.
+
 원어 입문(`learn.html`, 상단 "원어 입문" 링크): 히브리어 자음 22자·끝 글자·헷갈리는 글자·모음 부호·다게쉬, 헬라어 24자·이중모음·숨표와 악센트, 실제 성경 단어로 읽기 연습과 글자 퀴즈. 예시 단어는 `data/alphabet.json`에 미리 뽑아 두었으며, 본문에서 그 글자(또는 모음)로 시작하는 가장 흔한 형태를 고르고 처음 나오는 구절로 연결합니다. 발음은 사이트 전사 기준(히브리어 학습용 표기, 헬라어 에라스뮈스식)을 따릅니다.
 
 단어를 누르면 형태 코드를 한국어로 풀어 보여 줍니다(예: `HC/Vqw3ms` → 접속사 + 동사 칼 · 연속 미완료(와이크톨) · 3인칭 · 남성 · 단수). 히브리어는 OSHB 코드표, 헬라어는 MorphGNT 코드표를 그대로 옮긴 것이며, 주요 일곱 어간에는 문법서의 일반적인 기능 요약을 덧붙였습니다.
@@ -27,6 +29,7 @@
 - [OSHB](https://github.com/openscriptures/morphhb): Daniel Owens, David Troidl 및 기여자. WLC 본문 공개 영역, OSHB 형태 분석·주석·VerseMap CC BY 4.0.
 - [SBLGNT](https://github.com/LogosBible/SBLGNT): Michael W. Holmes 편집. © 2010 Society of Biblical Literature & Logos Bible Software. CC BY 4.0.
 - [MorphGNT SBLGNT](https://github.com/morphgnt/sblgnt): 헬라어 단어별 표제어(lemma)와 품사·형태 분석. CC BY-SA 3.0. 신약 데이터의 `l` 배열(표제어 번호)과 `p` 배열(`data/morph-gr.json`의 형태 코드 번호)이 이 자료에서 왔습니다.
+- [Open Scriptures Strong's Dictionary](https://github.com/openscriptures/strongs): 단어 학습의 히브리어 표제어 형태(`data/vocab-he.json`의 `w`). JSON 판 CC BY-SA.
 - Strong's Hebrew/Greek Dictionary (James Strong, 1890): 공개 영역. `data/glosses-he.json`(Strong 번호별)과 `data/glosses-gr.json`(표제어별)의 한국어 기본 뜻은 이 영어 정의를 바탕으로 AI가 짧게 옮긴 자동 번역이며 검토 전입니다.
 - [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) · [전문](data/SBLGNT-LICENSE.txt)
 
