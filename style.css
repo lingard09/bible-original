@@ -133,3 +133,10 @@ select{font:inherit;padding:10px;border:1px solid #cad5c2;border-radius:5px;back
 .vc-st{border:1px solid var(--border);background:white;border-radius:12px;font-size:11px;padding:3px 9px;white-space:nowrap;color:#7b8379}.vc-st.learning{background:#fbf3dc;border-color:#ead79a;color:#7d6420}.vc-st.solid{background:#e3eddb;border-color:#a9c799;color:#2f5a3f}.vc-st.again{background:#f6e3df;border-color:#e2bfb6;color:#8a3c2e}
 .vc-flags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.vc-flags span{background:white;border:1px solid var(--border);border-radius:14px;padding:4px 10px;font-size:12px}.vc-flags b{font:16px 'Noto Serif Hebrew',Georgia,serif;margin-right:4px}
 @media(max-width:700px){.vc-progress{grid-template-columns:repeat(2,1fr)}.vc-stat b{font-size:20px}.vc-card{padding:16px}.vc-word{font-size:48px}.vc-table td,.vc-table th{padding:8px}.vc-table td:nth-child(3),.vc-table th:nth-child(3){display:none}}
+/* 구절 화면: 단어 학습 진도(안 배운 단어) */
+.iw.unlearned{background:#fdf3d8;border-color:#f0dca0}.iw.unlearned.selected{border-color:#d9b94a}
+.vocab-line{display:flex;justify-content:space-between;align-items:center;gap:8px 14px;flex-wrap:wrap;margin:0 28px 14px;padding:9px 13px;background:#faf8f1;border:1px solid #ece6d4;border-radius:8px;font-size:12px;color:#6c6650}.vocab-line b{color:#3d4a37}
+.unlearned-key{display:inline-block;width:10px;height:10px;border-radius:3px;background:#fdf3d8;border:1px solid #e3c977;margin:0 4px 0 2px;vertical-align:-1px}
+.vl-actions{display:flex;gap:12px;align-items:center}.vl-btn{border:0;background:none;padding:0;font-size:12px;color:#7d6420;text-decoration:underline}.vl-actions a{color:var(--green);text-decoration:none;font-weight:500}
+.wd-vocab{font-size:12px;color:#6c6650;margin:0 0 10px}.wd-vocab b{color:#5a4c1e}.wd-vocab .small-btn{margin:0 0 0 6px;padding:4px 9px}.wd-vocab.wd-empty{color:#9aa58f}
+@media(max-width:700px){.vocab-line{margin:0 12px 12px}}
