@@ -140,3 +140,16 @@ select{font:inherit;padding:10px;border:1px solid #cad5c2;border-radius:5px;back
 .vl-actions{display:flex;gap:12px;align-items:center}.vl-btn{border:0;background:none;padding:0;font-size:12px;color:#7d6420;text-decoration:underline}.vl-actions a{color:var(--green);text-decoration:none;font-weight:500}
 .wd-vocab{font-size:12px;color:#6c6650;margin:0 0 10px}.wd-vocab b{color:#5a4c1e}.wd-vocab .small-btn{margin:0 0 0 6px;padding:4px 9px}.wd-vocab.wd-empty{color:#9aa58f}
 @media(max-width:700px){.vocab-line{margin:0 12px 12px}}
+/* 형태 퀴즈(quiz.html) */
+.qz-controls{display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}.qz-controls label{display:flex;align-items:center;gap:8px}.qz-controls select{width:auto;min-height:36px;padding:5px 8px}.qz-check input{width:16px;height:16px}
+.qz-start{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--muted)}
+.qz-weak{font-size:12px;color:#7d6420;margin:12px 0 0}.qz-weak b{color:#5a4c1e;margin-left:4px}
+.qz-card{text-align:left}.qz-verse{font:24px/1.9 'Noto Serif Hebrew',Georgia,serif;margin:16px 0 8px;text-align:start}.qz-verse mark{background:#f3e3a6;border-radius:4px;padding:0 3px;box-shadow:inset 0 -2px 0 #d9b94a}
+.qz-lemma{font-size:13px;color:#5d6b56;margin:0 0 12px}.qz-lemma b{color:var(--green)}.qz-lemma span{font:18px 'Noto Serif Hebrew',Georgia,serif;color:var(--ink)}
+.qz-steps{list-style:none;padding:0;margin:0 0 12px;display:flex;flex-wrap:wrap;gap:6px}.qz-steps li{font-size:12px;border:1px solid var(--border);border-radius:14px;padding:4px 10px;color:#9aa58f}.qz-steps li b{margin-left:5px;color:inherit}.qz-steps li s{color:#b0786b;margin-left:4px}
+.qz-steps li.now{border-color:var(--green);color:var(--green);font-weight:600}.qz-steps li.ok{background:#eef5e9;border-color:#a9c799;color:#2f5a3f}.qz-steps li.no{background:#f9ece8;border-color:#e2bfb6;color:#8a3c2e}
+.qz-q{font-size:16px;font-weight:600;margin:6px 0 10px;text-align:center}
+.qz-full{margin-top:4px}.qz-full .wd-morph{margin:0 0 8px}.qz-full a{font-size:12px;color:#6c7765}.qz-next{display:block;margin:14px auto 0}
+.qz-source{max-width:620px;margin:-12px auto 0;font-size:11px;color:#9aa58f;text-align:center}
+.qz-result{list-style:none;padding:0;margin:0 auto 16px;max-width:260px;text-align:left}.qz-result li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eef1ea;font-size:14px}
+@media(max-width:700px){header .brand{white-space:nowrap;flex-shrink:0}header{gap:12px}.head-links{gap:4px 10px;flex-wrap:wrap;justify-content:flex-end}.head-links .text-btn{font-size:11px}.qz-verse{font-size:21px}}
