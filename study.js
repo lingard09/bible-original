@@ -62,7 +62,7 @@ function showUnlearned(){try{return localStorage.getItem('studyUnlearned')!=='of
 function studyVocabIds(s){return s.tokens.map((x,i)=>{if(s.heb){const n=studyStrong(x.w);return n?'H'+n:null;}return s.lemmas?.length===s.tokens.length?String(s.lemmas[i]):null;});}
 async function applyVocabMarks(){
  const s=studyState,idx=await loadStudyFile('data/vocab-index.json');if(s!==studyState||!idx)return;
- const lang=s.heb?'he':'gr';s.vocab={lang,ids:studyVocabIds(s),rank:new Map(idx[lang].map((id,i)=>[id,i+1]))};
+ const lang=s.heb?'he':'gr';s.vocab={lang,ids:studyVocabIds(s),rank:new Map(idx[lang].map((id,i)=>[id,i+1]))};s.reviewed=(await loadStudyFile('data/gloss-review.json'))?.[lang]||{};if(s!==studyState)return;
  renderVocabMarks();if(s.selected!==undefined)showWordDetail(s.selected);
 }
 function renderVocabMarks(){
@@ -90,7 +90,7 @@ function showWordDetail(i){
  const codes=x.w?x.w.s.split('/').map(n=>n.replace(/[a-z\s]/g,'')).filter(n=>/^\d+$/.test(n)).map(n=>'H'+n):[],basic=studyState.basic[i],greekCode=heb?'':studyState.morphCodes?.[i],morph=heb?morphHebrew(x.w?.m):morphGreek(greekCode);
  studyState.tokens.forEach((_,j)=>$('iw'+j).classList.toggle('selected',j===i));
  $('wordDetail').hidden=false;
- $('wordDetail').innerHTML=`<div class="wd-head"><strong lang="${heb?'he':'el'}" dir="${heb?'rtl':'ltr'}">${esc(x.t)}</strong><button class="wd-close" id="wdClose" aria-label="단어 정보 닫기">×</button></div><p class="wd-pron">${esc(p.korean)} <span>· ${esc(p.roman)} · 자동 전사</span></p>${basic?`<p class="wd-basic"><b>기본 뜻</b>${esc(basic)} <span>· ${studyState.lemmaText?`표제어 ${esc(studyState.lemmaText[i])} · `:''}Strong 사전 기반 자동 번역</span></p>`:''}${morphHTML(morph)}${vocabDetailHTML(i)}${term?`<p class="wd-term"><b>${esc(term.meaning)}</b>${esc(term.explanation)}</p>`:'<p class="wd-term wd-empty">이 구절의 핵심 원어 풀이에는 포함되어 있지 않습니다.</p>'}${x.w?`<p class="wd-meta">Strong ${esc(codes.join(' / ')||x.w.s)} · OSHB 형태 코드 ${esc(x.w.m)}</p>${codes.length?`<div class="wd-actions">${codes.map(c=>`<button class="small-btn" data-query="${c}">${c} 성경 전체 용례 ↗</button>`).join('')}</div>`:''}`:greekCode?`<p class="wd-meta">MorphGNT 형태 코드 ${esc(greekCode)}</p>`:''}`;
+ $('wordDetail').innerHTML=`<div class="wd-head"><strong lang="${heb?'he':'el'}" dir="${heb?'rtl':'ltr'}">${esc(x.t)}</strong><button class="wd-close" id="wdClose" aria-label="단어 정보 닫기">×</button></div><p class="wd-pron">${esc(p.korean)} <span>· ${esc(p.roman)} · 자동 전사</span></p>${basic?`<p class="wd-basic"><b>기본 뜻</b>${esc(basic)} <span>· ${studyState.lemmaText?`표제어 ${esc(studyState.lemmaText[i])} · `:''}${studyState.reviewed?.[studyState.vocab?.ids[i]]?'검토한 기본 뜻':'Strong 사전 기반 자동 번역'}</span></p>`:''}${morphHTML(morph)}${vocabDetailHTML(i)}${term?`<p class="wd-term"><b>${esc(term.meaning)}</b>${esc(term.explanation)}</p>`:'<p class="wd-term wd-empty">이 구절의 핵심 원어 풀이에는 포함되어 있지 않습니다.</p>'}${x.w?`<p class="wd-meta">Strong ${esc(codes.join(' / ')||x.w.s)} · OSHB 형태 코드 ${esc(x.w.m)}</p>${codes.length?`<div class="wd-actions">${codes.map(c=>`<button class="small-btn" data-query="${c}">${c} 성경 전체 용례 ↗</button>`).join('')}</div>`:''}`:greekCode?`<p class="wd-meta">MorphGNT 형태 코드 ${esc(greekCode)}</p>`:''}`;
  $('wdClose').onclick=()=>{$('wordDetail').hidden=true;studyState.selected=undefined;studyState.tokens.forEach((_,j)=>$('iw'+j).classList.toggle('selected',false));};
  if($('addVocab'))$('addVocab').onclick=()=>addToVocab(i);
  bindQueries();
