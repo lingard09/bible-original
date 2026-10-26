@@ -43,9 +43,12 @@ function applyStudy(m,ai){
  $('tab-terms').textContent=`핵심 단어 ${m.terms.length}`;
  renderGlosses();
 }
+// 단어 아래 라벨은 짧게: 쉼표로 나뉜 기본 뜻 중 앞의 것(두 개를 합쳐 10자 이하면 두 개)만 보이고, 전체 뜻은 단어 상세에 있습니다.
+// 세미콜론으로 이어진 뜻(예: 매다; (δεῖ) ~해야 한다)은 나누지 않습니다.
+function shortGloss(g){const parts=g.split(/,\s*/);return parts.length<2?g:parts.slice(0,2).join(', ').length<=10?parts.slice(0,2).join(', '):parts[0];}
 function renderGlosses(){
  const {matches,terms,basic}=studyState;
- matches.forEach((r,i)=>{const term=r.label?terms[r.ti].meaning:'',g=$('gloss'+i);$('iw'+i).classList.toggle('has-term',r.ti>=0);g.textContent=term||basic[i]||'';g.classList.toggle('basic',!term);});
+ matches.forEach((r,i)=>{const term=r.label?terms[r.ti].meaning:'',g=$('gloss'+i),full=basic[i]||'';$('iw'+i).classList.toggle('has-term',r.ti>=0);g.textContent=term||shortGloss(full);if(g.setAttribute)g.setAttribute('title',term||full);g.classList.toggle('basic',!term);});
 }
 async function applyBasicGlosses(){
  const s=studyState,greekMorph=!s.heb&&s.parse?.length===s.tokens.length;
