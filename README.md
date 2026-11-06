@@ -1,6 +1,6 @@
 # 원문 — 성경 원어 검색
 
-사이트: https://lingard09.github.io/bible-original/
+사이트: https://onezin.me/bible-original/ (GitHub Pages 사용자 지정 도메인, lingard09.github.io에서 이동)
 
 성경 66권 원문·발음, 책/장/절 탐색, 장 전체/구절 범위와 성경 전체 원어 용례 검색을 제공합니다. 한국어 기초 사전은 307개 표제어, 검토한 자체 의미 풀이는 시편 57편 전체를 포함한 38개 구절입니다. 그 외 구절은 Cloudflare Workers와 OpenAI를 연결해 자동 의미 풀이를 생성합니다.
 
