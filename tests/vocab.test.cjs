@@ -23,7 +23,7 @@ vm.createContext(context);for(const f of ['pronunciation.js','vocab.js'])vm.runI
  await vm.runInContext('initVocab()',context);
  assert.ok(nodes.vocabTop.innerHTML.includes('학습 시작 · 10장'));assert.ok(nodes.vocabList.innerHTML.includes('1–50위'));
  vm.runInContext('session=buildSession();renderStudy()',context);assert.ok(nodes.vocabStudy.innerHTML.includes('새 단어 · 1위'));
- vm.runInContext('session.revealed=true;renderStudy()',context);assert.ok(nodes.vocabStudy.innerHTML.includes('검토 전'));assert.ok(nodes.vocabStudy.innerHTML.includes('<mark>'));
+ vm.runInContext('session.revealed=true;renderStudy()',context);assert.ok(nodes.vocabStudy.innerHTML.includes('검토 전'));vm.runInContext("reviewed={'0':'ok'};renderStudy()",context);assert.ok(nodes.vocabStudy.innerHTML.includes('검토한 기본 뜻'),'reviewed gloss badge');assert.ok(nodes.vocabStudy.innerHTML.includes('<mark>'));
  vm.runInContext('grade(2)',context);vm.runInContext('grade(0)',context);
  const st=JSON.parse(store['vocab:gr']),t=vm.runInContext('today()',context);
  assert.deepEqual(st.cards['0'],{b:1,d:t+1});assert.deepEqual(st.cards['1'],{b:0,d:t});assert.equal(st.newToday,2);

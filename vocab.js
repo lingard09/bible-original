@@ -5,7 +5,9 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const $=id=>document.getElementById(id);
 const INTERVALS=[0,1,3,7,16,35];// 상자 번호별 다음 복습까지의 일수
 const RANGE=50;
-let lang='he',vocab=null,state=null,session=null;
+let lang='he',vocab=null,state=null,session=null,reviewed={};
+// 사람이 확인한 기본 뜻(tools/apply_gloss_review.py가 기록). 없어도 학습은 동작합니다.
+async function loadReviewed(){try{const r=await fetch('data/gloss-review.json');reviewed=r.ok?(await r.json())[lang]||{}:{};}catch{reviewed={};}}
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/864e5);};
 function loadState(){try{const s=JSON.parse(localStorage.getItem('vocab:'+lang)||'{}');return {cards:s.cards||{},flags:s.flags||{},perDay:s.perDay||10,day:s.day||0,newToday:s.newToday||0};}catch{return {cards:{},flags:{},perDay:10,day:0,newToday:0};}}
 function saveState(){try{localStorage.setItem('vocab:'+lang,JSON.stringify(state));}catch{}}
@@ -37,7 +39,7 @@ function cardHTML(){
  const left=session.queue.length;
  return `<div class="vc-card"><div class="vc-card-top"><span>${c?'복습':'새 단어'} · ${rankOf(w)}위 · 성경에 ${w.c.toLocaleString()}회</span><span>남은 카드 ${left}</span></div>`
  +`<div class="vc-word" lang="${he?'he':'el'}" dir="${he?'rtl':'ltr'}">${esc(w.w)}</div>`
- +(session.revealed?`<div class="vc-back"><p class="vc-pron">${esc(p.korean)} <span>· ${esc(p.roman)}</span></p><p class="vc-gloss">${esc(w.g)}</p><p class="vc-badge">사전 기본 뜻 · Strong 정의 기반 자동 번역(검토 전)${he?` · Strong ${esc(w.id)}`:''}</p>${exampleHTML(w)}<div class="vc-answer"><button data-grade="0">모름<small>다시 보기</small></button><button data-grade="1">헷갈림<small>내일</small></button><button data-grade="2">알아요<small>${INTERVALS[Math.min(5,(c?.b||0)+1)]}일 뒤</small></button></div><button class="vc-flag${flag?' on':''}" id="flagWord" aria-pressed="${!!flag}">${flag?'✓ 뜻 확인 요청함':'뜻이 이상해요'}</button></div>`
+ +(session.revealed?`<div class="vc-back"><p class="vc-pron">${esc(p.korean)} <span>· ${esc(p.roman)}</span></p><p class="vc-gloss">${esc(w.g)}</p><p class="vc-badge">${reviewed[w.id]?'검토한 기본 뜻':'사전 기본 뜻 · Strong 정의 기반 자동 번역(검토 전)'}${he?` · Strong ${esc(w.id)}`:''}</p>${exampleHTML(w)}<div class="vc-answer"><button data-grade="0">모름<small>다시 보기</small></button><button data-grade="1">헷갈림<small>내일</small></button><button data-grade="2">알아요<small>${INTERVALS[Math.min(5,(c?.b||0)+1)]}일 뒤</small></button></div><button class="vc-flag${flag?' on':''}" id="flagWord" aria-pressed="${!!flag}">${flag?'✓ 뜻 확인 요청함':'뜻이 이상해요'}</button></div>`
  :`<button class="vc-reveal" id="reveal">뜻 보기 <small>스페이스</small></button>`)
  +`</div>`;
 }
@@ -88,7 +90,7 @@ async function setLang(next){
  lang=next==='gr'?'gr':'he';session=null;listStart=0;state=loadState();
  try{history.replaceState(null,'',`#${lang}`);}catch{}
  $('vocabTop').innerHTML='<p class="notice">단어 목록을 불러오는 중…</p>';
- try{const r=await fetch(`data/vocab-${lang}.json`);if(!r.ok)throw Error();vocab=await r.json();render();}
+ try{const r=await fetch(`data/vocab-${lang}.json`);if(!r.ok)throw Error();vocab=await r.json();await loadReviewed();render();}
  catch{$('vocabTop').innerHTML='<p class="notice">단어 목록을 불러오지 못했습니다. 페이지를 새로고침해주세요.</p>';}
 }
 function initVocab(){
