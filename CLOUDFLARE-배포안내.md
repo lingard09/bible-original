@@ -32,7 +32,7 @@ Workers Builds의 빌드 시간·사용량에도 별도 제한이 있습니다. 
 - 종류: **Secret**
 - 값: 본인의 OpenAI API 키
 
-비밀 설정을 저장/배포하세요. 키를 GitHub, `ai-config.js`, `wrangler.jsonc`에 넣지 마세요. 모델과 허용 출처는 `wrangler.jsonc`에 설정돼 있습니다.
+비밀 설정을 저장/배포하세요. 키를 GitHub, `ai-config.js`, `wrangler.jsonc`에 넣지 마세요. 모델과 허용 출처는 `wrangler.jsonc`에 설정돼 있습니다. 허용 출처(`ALLOWED_ORIGINS`)는 사이트 주소와 정확히 같아야 합니다. 지금은 `https://onezin.me`(사용자 지정 도메인)과 `https://lingard09.github.io`입니다. 도메인을 바꾸면 여기에 새 주소를 추가하지 않는 한 AI 풀이 요청이 403(허용되지 않은 접속 경로)으로 거절됩니다.
 
 Worker 주소 뒤 `/health`를 열었을 때 다음이 나오면 연결 준비가 됐습니다.
 
